@@ -1,0 +1,35 @@
+{
+  "name": "@pulsedeck/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./node": "./dist/node.js",
+    "./worker": "./dist/worker.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "wrangler dev --local",
+    "dev:node": "tsx watch src/node.ts",
+    "lint": "eslint src --max-warnings 0",
+    "type-check": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@pulsedeck/auth": "workspace:*",
+    "@pulsedeck/db": "workspace:*",
+    "@pulsedeck/domain": "workspace:*",
+    "@pulsedeck/pipeline": "workspace:*",
+    "@pulsedeck/scheduler": "workspace:*",
+    "@pulsedeck/storage": "workspace:*",
+    "hono": "^4.6.10"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241112.0",
+    "tsx": "^4.19.2",
+    "wrangler": "^3.91.0"
+  }
+}

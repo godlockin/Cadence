@@ -1,0 +1,41 @@
+{
+  "name": "pulsedeck",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "PulseDeck — self-hosted scheduled task orchestration platform (TypeScript, dual-runtime on Cloudflare Workers + Node.js).",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.13.1",
+  "scripts": {
+    "dev": "concurrently -k -n api,web,cron,queue -c blue,green,yellow,magenta \"pnpm --filter @pulsedeck/api dev\" \"pnpm --filter @pulsedeck/web dev\" \"pnpm --filter @pulsedeck/scheduler cron\" \"pnpm --filter @pulsedeck/scheduler queue\"",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky || true"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/js": "^9.15.0",
+    "@types/node": "^22.9.0",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "globals": "^15.12.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.4.1",
+    "turbo": "^2.3.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.15.0",
+    "vitest": "^2.1.5"
+  }
+}

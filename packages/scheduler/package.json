@@ -1,0 +1,25 @@
+{
+  "name": "@pulsedeck/scheduler",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "cron": "tsx watch src/cron.ts",
+    "queue": "tsx watch src/queue.ts",
+    "lint": "eslint src --max-warnings 0",
+    "type-check": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@pulsedeck/domain": "workspace:*",
+    "@pulsedeck/storage": "workspace:*",
+    "cron-parser": "^4.9.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "vitest": "^2.1.5"
+  }
+}

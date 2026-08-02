@@ -1,0 +1,9 @@
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+.wrangler/
+data/
+pnpm-lock.yaml
+*.log
