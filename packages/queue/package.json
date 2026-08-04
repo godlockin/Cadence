@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@cadence/domain": "workspace:*",
-    "p-queue": "^8.1.1"
+    "p-queue": "^9.3.3"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",
