@@ -1,0 +1,13 @@
+title: '[Show and Tell] '
+labels: ['show-and-tell']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## What did you build?
+
+        Share your Cadence workflow, setup, or integration.
+
+        ## Screenshots / Demo
+
+        ## Links / Code

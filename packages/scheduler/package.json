@@ -1,24 +1,25 @@
 {
-  "name": "@pulsedeck/scheduler",
-  "version": "0.1.0",
+  "name": "@cadence/scheduler",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "cron": "tsx watch src/cron.ts",
-    "queue": "tsx watch src/queue.ts",
     "lint": "eslint src --max-warnings 0",
     "type-check": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run --coverage",
+    "test:integration": "vitest run test/integration"
   },
   "dependencies": {
-    "@pulsedeck/domain": "workspace:*",
-    "@pulsedeck/storage": "workspace:*",
-    "cron-parser": "^4.9.0"
+    "@cadence/domain": "workspace:*",
+    "@cadence/storage": "workspace:*",
+    "cron-parser": "^4.9.0",
+    "ulid": "^2.3.0"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^2.1.9",
     "tsx": "^4.19.2",
     "vitest": "^2.1.5"
   }

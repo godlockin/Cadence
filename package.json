@@ -1,20 +1,30 @@
 {
-  "name": "pulsedeck",
-  "version": "0.1.0",
+  "name": "cadence",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "PulseDeck — self-hosted scheduled task orchestration platform (TypeScript, dual-runtime on Cloudflare Workers + Node.js).",
+  "description": "Cadence — self-hosted task scheduler & workflow orchestrator (TypeScript, dual-runtime on Cloudflare Workers + Node.js).",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20"
   },
   "packageManager": "pnpm@10.13.1",
   "scripts": {
-    "dev": "concurrently -k -n api,web,cron,queue -c blue,green,yellow,magenta \"pnpm --filter @pulsedeck/api dev\" \"pnpm --filter @pulsedeck/web dev\" \"pnpm --filter @pulsedeck/scheduler cron\" \"pnpm --filter @pulsedeck/scheduler queue\"",
+    "dev": "concurrently -k -n api,web,cron,queue -c blue,green,yellow,magenta \"PULSEDECK_DB_PATH=.cadence/dev.db pnpm --filter @cadence/api dev\" \"pnpm --filter @cadence/web dev\" \"PULSEDECK_DB_PATH=.cadence/dev.db pnpm --filter @cadence/api dev:cron\" \"PULSEDECK_DB_PATH=.cadence/dev.db pnpm --filter @cadence/api dev:queue\"",
+    "start": "pnpm --filter @cadence/api start:prod",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "test": "turbo run test",
+    "e2e": "pnpm --filter @cadence/web build && playwright test",
+    "test:e2e": "pnpm e2e",
+    "coverage": "pnpm --filter './packages/**' --filter './apps/**' test",
+    "coverage:html": "vitest run --coverage --reporter=html",
+    "coverage:lcov": "vitest run --coverage --reporter=lcov",
+    "e2e:install": "playwright install chromium",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky || true"
@@ -23,7 +33,9 @@
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
     "@eslint/js": "^9.15.0",
+    "@playwright/test": "^1.49.1",
     "@types/node": "^22.9.0",
+    "@vitest/coverage-v8": "^2.1.9",
     "concurrently": "^9.1.0",
     "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
@@ -33,9 +45,11 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
     "prettier": "^3.4.1",
+    "tsx": "^4.23.4",
     "turbo": "^2.3.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.15.0",
+    "vitepress": "^1.5.0",
     "vitest": "^2.1.5"
   }
 }

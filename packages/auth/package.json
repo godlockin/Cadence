@@ -1,6 +1,6 @@
 {
-  "name": "@pulsedeck/auth",
-  "version": "0.1.0",
+  "name": "@cadence/auth",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -9,15 +9,20 @@
     "build": "tsc -p tsconfig.json",
     "lint": "eslint src --max-warnings 0",
     "type-check": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@pulsedeck/domain": "workspace:*",
+    "@cadence/domain": "workspace:*",
+    "@cadence/scheduler": "workspace:*",
+    "@cadence/storage": "workspace:*",
     "argon2": "^0.41.1",
+    "hono": "^4.6.10",
     "jose": "^5.9.6",
+    "ulid": "^2.3.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/node": "*",
     "vitest": "^2.1.5"
   }
 }

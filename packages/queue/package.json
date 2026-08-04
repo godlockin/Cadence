@@ -1,0 +1,22 @@
+{
+  "name": "@cadence/queue",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src --max-warnings 0",
+    "type-check": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@cadence/domain": "workspace:*",
+    "p-queue": "^8.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "vitest": "^2.1.5"
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "name": "@pulsedeck/domain",
-  "version": "0.1.0",
+  "name": "@cadence/domain",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -9,7 +9,7 @@
     "build": "tsc -p tsconfig.json",
     "lint": "eslint src --max-warnings 0",
     "type-check": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "zod": "^3.23.8"

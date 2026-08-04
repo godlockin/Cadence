@@ -30,11 +30,7 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "outDir": "./dist",
-
-    "paths": {
-      "@pulsedeck/*": ["./packages/*/src"]
-    }
+    "outDir": "./dist"
   },
   "exclude": ["node_modules", "dist", "build", ".wrangler"]
 }

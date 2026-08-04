@@ -1,0 +1,54 @@
+name: Feature Request
+description: Propose a new feature or enhancement
+title: '[Feature] '
+labels: ['enhancement']
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Summary
+        A concise one-paragraph description of the feature.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Motivation
+      description: Why is this needed? What pain does it solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How should it work? Any specific API shape, UX behaviour, or node types?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any alternative approaches you evaluated?
+    validations:
+      required: false
+
+  - type: input
+    id: component
+    attributes:
+      label: Affected Component(s)
+      description: e.g. scheduler, nodes/http-request, sinker, auth, API, Web UI
+      placeholder: scheduler
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: readiness
+    attributes:
+      label: Readiness Checklist
+      options:
+        - label: I am willing to implement this feature
+          required: false
+        - label: I have tested this on my local environment
+          required: false

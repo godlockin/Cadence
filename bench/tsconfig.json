@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "target": "ES2022",
+    "strict": true,
+    "paths": {
+      "@cadence/domain": ["./packages/domain/src/index.ts"],
+      "@cadence/storage": ["./packages/storage/src/index.ts"],
+      "@cadence/scheduler": ["./packages/scheduler/src/index.ts"],
+      "@cadence/auth": ["./packages/auth/src/index.ts"],
+      "@cadence/queue": ["./packages/queue/src/index.ts"]
+    }
+  }
+}

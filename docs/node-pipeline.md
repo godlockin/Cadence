@@ -1,6 +1,6 @@
 # 6-Node Pipeline
 
-Every PulseDeck pipeline is a DAG composed of **six node kinds**, executed in
+Every Cadence pipeline is a DAG composed of **six node kinds**, executed in
 order with parallel branches where the DAG allows.
 
 ```
@@ -24,7 +24,7 @@ trigger → fetch → transform → condition → action → output
 
 ## Executor Contract
 
-`@pulsedeck/pipeline.PipelineNode<TInput, TOutput>` requires:
+`@Cadence/pipeline.PipelineNode<TInput, TOutput>` requires:
 
 ```ts
 validateConfig(config: unknown): { ok: true } | { ok: false; error: string }

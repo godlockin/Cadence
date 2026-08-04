@@ -1,0 +1,15 @@
+title: '[Q&A] '
+labels: ['q&a']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Question
+
+        What do you want to know?
+
+        ## What have you already tried?
+
+        ## Environment
+        - Deployment: (Cloudflare Workers / Node.js / Docker)
+        - Cadence version:

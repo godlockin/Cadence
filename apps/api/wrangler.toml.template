@@ -1,0 +1,58 @@
+# PulseDeck — Cloudflare Workers deployment template.
+#
+# COPY this file to `wrangler.toml` and fill in the values.
+# NEVER commit the real UUIDs to version control.
+#
+# Step-by-step:
+#   1. wrangler login
+#   2. wrangler d1 create pulsedeck                   → copy database_id
+#   3. wrangler kv namespace create CREDS_CACHE        → copy id
+#   4. cp wrangler.toml.template wrangler.toml
+#   5. Replace <REPLACE_WITH_D1_UUID> and <REPLACE_WITH_KV_UUID>
+#   6. wrangler secret put JWT_SECRET
+#      (value: base64-encoded string, >= 32 bytes)
+#   7. wrangler secret put ENCRYPTION_KEY
+#      (value: base64-encoded 32 raw bytes for AES-256-GCM)
+#   8. pnpm --filter @cadence/api exec wrangler d1 migrations apply PULSEDECK_DB --remote
+#   9. pnpm --filter @cadence/api exec wrangler deploy
+
+name = "pulsedeck"
+main = "src/worker.ts"
+compatibility_date = "2026-08-03"
+compatibility_flags = ["nodejs_compat"]
+
+# --- D1 (primary datastore) ---
+# Run: wrangler d1 create pulsedeck
+[[d1_databases]]
+binding = "PULSEDECK_DB"
+database_name = "pulsedeck"
+database_id = "<REPLACE_WITH_D1_UUID>"   # from step 2
+
+# --- KV (credential refresh cache) ---
+# Run: wrangler kv namespace create CREDS_CACHE
+[[kv_namespaces]]
+binding = "CREDS_CACHE"
+id = "<REPLACE_WITH_KV_UUID>"          # from step 3
+
+# --- Queue (task dispatch) ---
+[[queues.producers]]
+binding = "TASK_QUEUE"
+queue = "pulsedeck-tasks"
+
+[[queues.consumers]]
+queue = "pulsedeck-tasks"
+max_batch_size = 5
+
+# --- Cron Trigger (fires every minute; scheduler decides what is due) ---
+[triggers]
+crons = ["* * * * *"]
+
+# --- Static vars (non-secret) ---
+[vars]
+NODE_ENV = "production"
+LOG_LEVEL = "info"
+API_VERSION = "0.4.0"
+
+# --- Secrets (set via `wrangler secret put`) ---
+# JWT_SECRET        — >= 32 chars, base64-encoded
+# ENCRYPTION_KEY    — 32 raw bytes, base64-encoded (for AES-256-GCM)

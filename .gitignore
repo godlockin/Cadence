@@ -8,9 +8,11 @@ coverage/
 .env
 .env.*
 !.env.example
+!.env.test.example
 
 # runtime / data
 data/
+.pulsedeck/
 .wrangler/
 .dev.vars
 .miniflare/
@@ -30,3 +32,10 @@ pnpm-debug.log*
 # misc
 .cache/
 *.tsbuildinfo
+
+# e2e / docs artifacts
+playwright-report/
+test-results/
+blob-report/
+docs/.vitepress/dist
+docs/.vitepress/cache

@@ -1,0 +1,46 @@
+# PulseDeck — Cloudflare Workers configuration.
+#
+# Fill in `database_id` and the KV namespace `id` before
+# `pnpm --filter @cadence/api deploy`.
+#
+#   database_id: `wrangler d1 create pulsedeck`   → copy the id
+#   kv id:       `wrangler kv namespace create CREDS_CACHE` → copy the id
+#
+# Secrets (set with `wrangler secret put`):
+#   JWT_SECRET      — HS256 signing key (>= 16 chars)
+#   ENCRYPTION_KEY  — base64 AES-256-GCM master key (32 raw bytes)
+
+name = "pulsedeck"
+main = "src/worker.ts"
+compatibility_date = "2026-08-03"
+compatibility_flags = ["nodejs_compat"]
+
+# --- D1 (primary datastore) ---
+[[d1_databases]]
+binding = "PULSEDECK_DB"
+database_name = "pulsedeck"
+database_id = "<fill-by-user>"
+
+# --- KV (credential refresh cache) ---
+[[kv_namespaces]]
+binding = "CREDS_CACHE"
+id = "<fill-by-user>"
+
+# --- Queue (task dispatch) ---
+[[queues.producers]]
+binding = "TASK_QUEUE"
+queue = "pulsedeck-tasks"
+
+[[queues.consumers]]
+queue = "pulsedeck-tasks"
+max_batch_size = 5
+
+# --- Cron Trigger (fires every minute; scheduler decides what is due) ---
+[triggers]
+crons = ["* * * * *"]
+
+# --- Static vars (non-secret) ---
+[vars]
+NODE_ENV = "production"
+LOG_LEVEL = "info"
+API_VERSION = "0.4.0"

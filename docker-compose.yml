@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  pulsedeck:
+    build: .
+    image: pulsedeck:latest
+    container_name: pulsedeck
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./data:/data
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      # Override in production: `JWT_SECRET` / `ENCRYPTION_KEY` in .env
+      # (or the shell) replace these dev defaults.
+      - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:-change-me-too}
+      - PULSEDECK_SCHEDULER_ENABLED=1
+      - PULSEDECK_DB_PATH=/data/pulsedeck.db
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/health']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

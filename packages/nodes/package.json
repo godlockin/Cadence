@@ -1,6 +1,6 @@
 {
-  "name": "@pulsedeck/nodes",
-  "version": "0.1.0",
+  "name": "@cadence/nodes",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -9,11 +9,12 @@
     "build": "tsc -p tsconfig.json",
     "lint": "eslint src --max-warnings 0",
     "type-check": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@pulsedeck/domain": "workspace:*",
-    "@pulsedeck/pipeline": "workspace:*"
+    "@cadence/domain": "workspace:*",
+    "@cadence/executor-pipeline": "workspace:*",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "vitest": "^2.1.5"

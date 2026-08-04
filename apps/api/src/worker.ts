@@ -1,14 +1,33 @@
 /**
- * Cloudflare Workers entry.
- * PHASE 0: placeholder. Hono app + D1 binding land in PHASE 1+.
+ * Cloudflare Workers entry — `apps/api/src/worker.ts`.
+ *
+ * Wraps the Cloudflare adapter's app into the default export. The
+ * `env` binding is declared by `wrangler.toml`; the type comes from
+ * `./adapters/cloudflare.js`.
+ *
+ * Also exports `scheduled` — the Cron Trigger controller. Cloudflare
+ * calls this once per cron expression that matches `wrangler.toml`'s
+ * `triggers.crons` array. We re-emit the work through the scheduler
+ * adapter so tasks registered via the API get picked up.
  */
-import { createContext } from './index.js'
+import { buildCloudflareApp, type CloudflareEnv } from './adapters/cloudflare.js'
+
+export { buildCloudflareApp }
+export type { CloudflareEnv }
 
 export default {
-  async fetch(): Promise<Response> {
-    const ctx = createContext()
-    return new Response(JSON.stringify({ ok: true, version: ctx.version }), {
-      headers: { 'content-type': 'application/json' },
+  async fetch(request: Request, env: CloudflareEnv): Promise<Response> {
+    const { app } = buildCloudflareApp(env)
+    return app.fetch(request)
+  },
+  async scheduled(
+    controller: { readonly cron: string; readonly scheduledTime: number },
+    env: CloudflareEnv,
+  ): Promise<void> {
+    const built = buildCloudflareApp(env)
+    await built.onScheduled({
+      cron: controller.cron,
+      scheduledTime: controller.scheduledTime,
     })
   },
 }

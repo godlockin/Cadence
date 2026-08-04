@@ -1,5 +1,5 @@
 /**
- * @pulsedeck/ui — shadcn-derived shared components.
+ * @cadence/ui — shadcn-derived shared components.
  * PHASE 0: placeholder. Real components land in PHASE 1+.
  */
 import type { ReactNode } from 'react'
